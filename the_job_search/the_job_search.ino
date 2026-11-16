@@ -47,7 +47,7 @@ enum CrossingType { FOLLOW_UP_EMAIL, FINAL_PREP };
 
 // Interviewer types are intentionally hidden from the player.
 enum InterviewerType {
-  ILLEGAL_QUESTIONS,
+  UNETHICAL,
   BUDDY,
   PROFESSIONAL,
   DISTRACTED,
@@ -343,7 +343,7 @@ const char* getHiringPotentialText(int potential) {
 int getStoreBonus() {
   switch (currentInterviewer) {
     case DISTRACTED: return min(practice, 2) * 4;           // up to two practices help distracted
-    case ILLEGAL_QUESTIONS: return min(childcare, 1) * 8;   // up to one childcare helps with unethical
+    case UNETHICAL: return min(childcare, 1) * 8;   // up to one childcare helps with unethical
     case PROFESSIONAL: return min(linkedin, 1) * 4;         // up to one linkedin helps professional
     case BUDDY: return min(latte, 2) * 4;                   // up to two lattes helps buddy
     default: return 0;                                      // pressuring has no matching store item.
@@ -604,7 +604,7 @@ void showInterviewIntro() {
 
   // draw the image corresponding to the interviewer
   switch (currentInterviewer) {
-    case ILLEGAL_QUESTIONS:
+    case UNETHICAL:
       drawInterviewerImage(unethical);
       break;
 
@@ -631,7 +631,7 @@ void showInterviewIntro() {
   tft.textSetCursor(20, 20);
 
   switch (currentInterviewer) {
-    case ILLEGAL_QUESTIONS:
+    case UNETHICAL:
       tft.textWrite("Interviewer: HR Representative");
       break;
 
@@ -656,7 +656,7 @@ void showInterviewIntro() {
   tft.textSetCursor(20, 75);
 
   switch (currentInterviewer) {
-    case ILLEGAL_QUESTIONS:
+    case UNETHICAL:
       tft.textWrite("They care about who you are!");
       break;
 
@@ -1105,7 +1105,7 @@ void calculateStartingHealth() {
 
 void applyInterviewAnswer(int answer) {
   // immediate loss if you are pregnant unless you have childcare
-  if (currentInterviewer == ILLEGAL_QUESTIONS &&
+  if (currentInterviewer == UNETHICAL &&
     interviewStep == 2 &&
     answer == 2 &&
     childcare == 0) {
