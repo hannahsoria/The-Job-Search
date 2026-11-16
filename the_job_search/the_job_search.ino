@@ -678,7 +678,7 @@ void showInterviewIntro() {
   }
 
   tft.textSetCursor(315, 390);
-  tft.textWrite("PRESS [Enter] TO BEGIN");
+  tft.textWrite("Press [Enter] to begin");
 
   finishScreen();
 }
